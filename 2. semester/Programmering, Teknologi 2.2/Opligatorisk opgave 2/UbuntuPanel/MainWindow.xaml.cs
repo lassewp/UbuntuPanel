@@ -10,18 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UbuntuPanel
 {
     /// <summary>
-    /// Interaction logic for CreateWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class CreateWindow : Window
+    public partial class MainWindow : Window
     {
-        public CreateWindow()
+        public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine();
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

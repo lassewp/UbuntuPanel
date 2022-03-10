@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UbuntuPanel"
         mc:Ignorable="d"
-        Title="infoWindow" Height="587" Width="591">
+        Title="infoWindow" Height="587" Width="591"
+        Background="NavajoWhite">
     <Grid>
         <Label x:Name="UptimeLabel" Content="Uptime :" HorizontalAlignment="Left" Margin="30,46,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
         <Label x:Name="DiskLabel" Content="Disk :" HorizontalAlignment="Left" Margin="30,104,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
@@ -17,8 +18,9 @@
         <Label x:Name="RamOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,157,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
         <Label x:Name="CpuOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,208,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
         <Label x:Name="ProcessesOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,260,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="OuputSerner" Content="-----" HorizontalAlignment="Left" Margin="227,10,0,0" VerticalAlignment="Top" Width="178" FontSize="18" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,339,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="527" Height="222"/>
+        <Label x:Name="OuputSerner" Content="Server Properties" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="160" FontSize="18" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,339,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="527" Height="222" Background="#FFD9D9DF"/>
+        <Button  x:Name="CloseBtn"  Content="X" HorizontalAlignment="Left" Margin="539,10,0,0" VerticalAlignment="Top" Width="42" Height="24" Foreground="#FFF6F4F4" FontWeight="Bold" Background="#FF090909" RenderTransformOrigin="0.476,0.585" />
 
     </Grid>
 </Window>
