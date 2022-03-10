@@ -23,6 +23,7 @@ namespace UbuntuPanel
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine();
         }
     }
 }
