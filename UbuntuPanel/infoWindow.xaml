@@ -1,0 +1,24 @@
+﻿<Window x:Class="UbuntuPanel.infoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UbuntuPanel"
+        mc:Ignorable="d"
+        Title="infoWindow" Height="587" Width="591">
+    <Grid>
+        <Label x:Name="UptimeLabel" Content="Uptime :" HorizontalAlignment="Left" Margin="30,46,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="DiskLabel" Content="Disk :" HorizontalAlignment="Left" Margin="30,104,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="RamLabel" Content="RAM :" HorizontalAlignment="Left" Margin="30,157,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="CpuLabel" Content="CPU :" HorizontalAlignment="Left" Margin="30,208,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="ProcessesLabel" Content="Processes :" HorizontalAlignment="Left" Margin="30,260,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="UptimeOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,46,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="DiskOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,104,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="RamOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,157,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="CpuOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,208,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="ProcessesOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,260,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="OuputSerner" Content="-----" HorizontalAlignment="Left" Margin="227,10,0,0" VerticalAlignment="Top" Width="178" FontSize="18" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,339,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="527" Height="222"/>
+
+    </Grid>
+</Window>
