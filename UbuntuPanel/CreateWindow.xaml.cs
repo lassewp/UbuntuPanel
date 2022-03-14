@@ -14,14 +14,24 @@ using System.Windows.Shapes;
 
 namespace UbuntuPanel
 {
-    /// <summary>
-    /// Interaction logic for CreateWindow.xaml
-    /// </summary>
     public partial class CreateWindow : Window
     {
+        bool Saved = false;
+
         public CreateWindow()
         {
             InitializeComponent();
+        }
+
+        public bool IsSaved
+        {
+            get { return Saved; }
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Saved = true;
+            this.Close();
         }
     }
 }

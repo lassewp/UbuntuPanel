@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UbuntuPanel"
         mc:Ignorable="d"
-        Title="CreateWindow" Height="344" Width="440">
+        Title="CreateWindow" Height="414" Width="440">
     <Grid>
-        <Label x:Name="ServerIPLabel" Content="Server IP :" HorizontalAlignment="Left" Margin="26,67,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="PortLabel" Content="Port :" HorizontalAlignment="Left" Margin="26,113,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="UserLabel" Content="Username :" HorizontalAlignment="Left" Margin="26,158,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="PaswordLabel" Content="Password :" HorizontalAlignment="Left" Margin="26,209,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="CreateBtn1" Content="Create" HorizontalAlignment="Left" Margin="179,263,0,0" VerticalAlignment="Top" Width="115" FontSize="20" FontWeight="Bold" Height="42" Background="Black" Foreground="#FFFDFDFD"/>
-        <TextBox  x:Name="ServerTextBox" HorizontalAlignment="Left" Height="37" Margin="203,67,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="PortTextBox" HorizontalAlignment="Left" Height="37" Margin="203,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="UserTextBox" HorizontalAlignment="Left" Height="37" Margin="203,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="37" Margin="203,208,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
+        <Label x:Name="ServerIPLabel" Content="Server IP :" HorizontalAlignment="Left" Margin="33,128,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="PortLabel" Content="Port :" HorizontalAlignment="Left" Margin="33,174,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="UserLabel" Content="Username :" HorizontalAlignment="Left" Margin="33,219,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="PaswordLabel" Content="Password :" HorizontalAlignment="Left" Margin="33,270,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Button x:Name="saveButton" Content="Create" HorizontalAlignment="Left" Margin="170,324,0,0" VerticalAlignment="Top" Width="114" FontSize="20" FontWeight="Bold" Height="42" Background="Black" Foreground="#FFFDFDFD" Click="saveButton_Click"/>
+        <TextBox  x:Name="ServerTextBox" HorizontalAlignment="Left" Height="37" Margin="210,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
+        <TextBox  x:Name="PortTextBox" HorizontalAlignment="Left" Height="37" Margin="210,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
+        <TextBox  x:Name="UserTextBox" HorizontalAlignment="Left" Height="37" Margin="210,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+        <TextBox  x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="37" Margin="210,269,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
         <Label x:Name="CreateLabel" Content="Create custom server" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top" Width="192" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="ServerName" Content="Server Name :" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="139" FontSize="18" FontWeight="Bold"/>
+        <TextBox  x:Name="ServerNameTextBox" HorizontalAlignment="Left" Height="37" Margin="210,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
 
     </Grid>
 </Window>
