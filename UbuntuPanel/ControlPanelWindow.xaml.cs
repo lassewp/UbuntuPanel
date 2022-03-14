@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renci.SshNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace UbuntuPanel
 
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
             dispatcherTimer.Start();
         }
 
@@ -37,7 +38,91 @@ namespace UbuntuPanel
         {
             Task.Run(() =>
             {
+                foreach (var server in servers)
+                {
+                    Task.Run(() =>
+                    {
+                        string ip = server.ServerIP;
+                        string port = server.ServerPort.ToString();
+                        string user = server.ServerUsername;
+                        string pass = server.ServerPassword;
+                        SshClient client;
 
+                        if (port != "")
+                        {
+                            client = new SshClient(ip, Convert.ToInt32(port), user, pass);
+                            bool connected = false;
+                            try
+                            {
+                                client.Connect();
+                                connected = true;
+                            }
+                            catch (Exception)
+                            {
+                                connected = false;
+                            }
+
+                            if (connected == true)
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    serverOneStatus.Content = "Connected";
+                                    serverOneIndicator.Fill = Brushes.Green;
+                                    serverOneRebootButton.IsEnabled = true;
+                                    serverOneInfoButton.IsEnabled = true;
+                                });
+                            }
+                            else
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    serverOneStatus.Content = "No connection";
+                                    serverOneIndicator.Fill = Brushes.Red;
+                                    serverOneRebootButton.IsEnabled = false;
+                                    serverOneInfoButton.IsEnabled = false;
+                                });
+                            }
+                            client.Disconnect();
+                        }
+                        else
+                        {
+                            client = new SshClient(ip, user, pass);
+                            bool connected = false;
+
+                            try
+                            {
+                                client.Connect();
+                                connected = true;
+                            }
+                            catch (Exception)
+                            {
+                                connected = false;
+                            }
+
+                            if (connected == true)
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    serverOneStatus.Content = "Connected";
+                                    serverOneIndicator.Fill = Brushes.Green;
+                                    serverOneRebootButton.IsEnabled = true;
+                                    serverOneInfoButton.IsEnabled = true;
+                                });
+                            }
+                            else
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    serverOneStatus.Content = "No connection";
+                                    serverOneIndicator.Fill = Brushes.Red;
+                                    serverOneRebootButton.IsEnabled = false;
+                                    serverOneInfoButton.IsEnabled = false;
+                                });
+                            }
+                            client.Disconnect();
+                        }
+                    });
+                }
             });
         }
 
