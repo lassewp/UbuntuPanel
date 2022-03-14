@@ -69,7 +69,7 @@
                     <Label x:Name="serverOneIP" HorizontalContentAlignment="Right" Grid.Column="1" Content="0.0.0.0"/>
                 </Grid>
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="serverOneRebootButton" Template="{DynamicResource Rounded}"  Width="88" IsEnabled="False" Content="Reboot"/>
+                    <Button x:Name="serverOneRebootButton" Template="{DynamicResource Rounded}"  Width="88" IsEnabled="False" Content="Reboot" Click="serverOneRebootButton_Click"/>
                     <Button x:Name="serverOneInfoButton" Margin="5,0,5,0" Width="88" IsEnabled="False"  Content="More Info" Template="{DynamicResource Rounded}"/>
                     <Button x:Name="serverOneEditButton" Width="88" Height="40"  Click="serverOneEditButton_Click" Content="Edit" Template="{DynamicResource Rounded}"/>
                 </StackPanel>

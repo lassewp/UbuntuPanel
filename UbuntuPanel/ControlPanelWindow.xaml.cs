@@ -36,6 +36,7 @@ namespace UbuntuPanel
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+            // Server Status checker:
             Task.Run(() =>
             {
                 foreach (var server in servers)
@@ -159,6 +160,58 @@ namespace UbuntuPanel
             });
             thread.ApartmentState = ApartmentState.STA;
             thread.Start();
+        }
+
+        private void serverOneRebootButton_Click(object sender, RoutedEventArgs e)
+        {
+            Task.Run(()=> 
+            {
+            SshClient client;
+
+                if (servers[0].ServerPort.ToString() != "")
+                {
+                    client = new SshClient(servers[0].ServerIP, Convert.ToInt32(servers[0].ServerPort), servers[0].ServerUsername, servers[0].ServerPassword);
+                    
+                    bool connected = false;
+                    try
+                    {
+                        client.Connect();
+                        connected = true;
+                    }
+                    catch (Exception)
+                    {
+                        connected = false;
+                    }
+
+                    if (connected == true)
+                    {
+                        var rebootCmd = client.CreateCommand("echo -e '" + servers[0].ServerPassword +"\n' | sudo -S reboot");
+                        rebootCmd.Execute();
+                        
+                    }
+                    client.Disconnect();
+                }
+                else
+                {
+                    client = new SshClient(servers[0].ServerIP, servers[0].ServerUsername, servers[0].ServerPassword);
+                    bool connected = false;
+                    try
+                    {
+                        client.Connect();
+                        connected = true;
+                    }
+                    catch (Exception)
+                    {
+                        connected = false;
+                    }
+
+                    if (connected == true) 
+                    {
+                        client.CreateCommand("echo -e '" + servers[0].ServerPassword + "\n' | sudo -S reboot");
+                    }
+                    client.Disconnect();
+                }
+            });
         }
     }
 }
