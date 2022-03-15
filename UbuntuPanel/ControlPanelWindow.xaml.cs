@@ -132,18 +132,36 @@ namespace UbuntuPanel
             var thread = new Thread(() =>
             {
                 CreateWindow editWindow = new CreateWindow();
+
+                if (servers.ElementAtOrDefault(0) != null)
+                {
+                    editWindow.ServerNameTextBox.Text = servers[0].ServerName;
+                    editWindow.ServerTextBox.Text = servers[0].ServerIP;
+                    editWindow.PortTextBox.Text = servers[0].ServerPort.ToString();
+                    editWindow.UserTextBox.Text = servers[0].ServerUsername;
+                    editWindow.PasswordTextBox.Text = servers[0].ServerPassword;
+                }
+
                 editWindow.ShowDialog();
+
                 if (editWindow.IsSaved)
                 {
                     string tmpName = editWindow.ServerNameTextBox.Text;
                     string tmpIP = editWindow.ServerTextBox.Text;
-                    string tmpPort = editWindow.PortTextBox.Text;
+
+                    int tmpPort = 0;
+                    if (editWindow.PortTextBox.Text == "" || editWindow.PortTextBox.Text == "0")
+                        tmpPort = 0;
+                    else
+                        tmpPort = Convert.ToInt32(editWindow.PortTextBox.Text);
+
                     string tmpPass = editWindow.PasswordTextBox.Text;
                     string tmpUser = editWindow.UserTextBox.Text;
 
                     Dispatcher.Invoke(() =>
                     {
-                        var newServer = new Server(tmpName,tmpIP,Convert.ToInt32(tmpPort), tmpUser, tmpPass);
+
+                        var newServer = new Server(tmpName,tmpIP, tmpPort, tmpUser, tmpPass);
                         if (servers.ElementAtOrDefault(0) == null)
                             servers.Add(newServer);
                         else
@@ -212,6 +230,17 @@ namespace UbuntuPanel
                     client.Disconnect();
                 }
             });
+        }
+
+        private void serverOneInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow();
+                infoWindow.ShowDialog();
+            });
+
+            thread.Start();
         }
     }
 }
