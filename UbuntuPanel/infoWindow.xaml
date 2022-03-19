@@ -5,20 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UbuntuPanel"
         mc:Ignorable="d"
-        Title="infoWindow" Height="587" Width="591">
+        Title="infoWindow" Height="543" Width="591">
     <Grid>
-        <Label x:Name="UptimeLabel" Content="Uptime :" HorizontalAlignment="Left" Margin="30,46,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="DiskLabel" Content="Disk :" HorizontalAlignment="Left" Margin="30,104,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="RamLabel" Content="RAM :" HorizontalAlignment="Left" Margin="30,157,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="CpuLabel" Content="CPU :" HorizontalAlignment="Left" Margin="30,208,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="ProcessesLabel" Content="Processes :" HorizontalAlignment="Left" Margin="30,260,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="UptimeOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,46,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="DiskOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,104,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="RamOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,157,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="CpuOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,208,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="ProcessesOuput" Content=" ---" HorizontalAlignment="Left" Margin="339,260,0,0" VerticalAlignment="Top" Width="172" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="OuputSerner" Content="-----" HorizontalAlignment="Left" Margin="227,10,0,0" VerticalAlignment="Top" Width="178" FontSize="18" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,339,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="527" Height="222"/>
-
+        <StackPanel Margin="10,10,10,10">
+            <Label HorizontalContentAlignment="Center" x:Name="serverNameLabel" FontSize="20" FontWeight="Bold">Server Name</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14">Uptime:</Label>
+                <Label x:Name="uptimeLabel" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Right"></Label>
+                <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="14">Disk:</Label>
+                <Label x:Name="diskLabel" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Right"></Label>
+                <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="14">RAM:</Label>
+                <Label x:Name="ramLabel" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Right"></Label>
+                <Label Grid.Column="0" Grid.Row="3" FontWeight="Bold" FontSize="14">CPU:</Label>
+                <Label x:Name="cpuLabel" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Right"></Label>
+            </Grid>
+            <Label FontSize="14" FontWeight="Bold">Processes:</Label>
+            <ListBox x:Name="theViewbox" Height="300"></ListBox>
+        </StackPanel>
     </Grid>
 </Window>

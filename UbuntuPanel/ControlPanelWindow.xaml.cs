@@ -17,9 +17,6 @@ using System.Windows.Threading;
 
 namespace UbuntuPanel
 {
-    /// <summary>
-    /// Interaction logic for ControlPanelWindow.xaml
-    /// </summary>
     public partial class ControlPanelWindow : Window
     {
         List<Server> servers = new List<Server>();
@@ -700,10 +697,10 @@ namespace UbuntuPanel
         {
             var thread = new Thread(() =>
             {
-                var infoWindow = new infoWindow();
+                var infoWindow = new infoWindow(servers[0]);
                 infoWindow.ShowDialog();
             });
-
+            thread.ApartmentState = ApartmentState.STA;
             thread.Start();
         }
 
