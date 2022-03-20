@@ -21,16 +21,16 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14">Uptime:</Label>
-                <Label x:Name="uptimeLabel" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Right"></Label>
+                <Label x:Name="uptimeLabel" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Right" MaxHeight="30"></Label>
                 <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="14">Disk:</Label>
-                <Label x:Name="diskLabel" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Right"></Label>
+                <Label x:Name="diskLabel" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Right" MaxHeight="30"></Label>
                 <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="14">RAM:</Label>
-                <Label x:Name="ramLabel" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Right"></Label>
+                <Label x:Name="ramLabel" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Right" MaxHeight="30"></Label>
                 <Label Grid.Column="0" Grid.Row="3" FontWeight="Bold" FontSize="14">CPU:</Label>
-                <Label x:Name="cpuLabel" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Right"></Label>
+                <Label x:Name="cpuLabel" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Right" MaxHeight="30"></Label>
             </Grid>
             <Label FontSize="14" FontWeight="Bold">Processes:</Label>
-            <ListBox x:Name="theViewbox" Height="300"></ListBox>
+            <TextBox x:Name="ProcessBox" Text="Loading..."></TextBox>
         </StackPanel>
     </Grid>
 </Window>

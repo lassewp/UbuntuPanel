@@ -33,5 +33,10 @@ namespace UbuntuPanel
             Saved = true;
             this.Close();
         }
+
+        private void ServerNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace UbuntuPanel
         {
             InitializeComponent();
 
+            
+
             TimeStart(0, 0, 1);
         }
 
@@ -704,6 +706,61 @@ namespace UbuntuPanel
             thread.Start();
         }
 
+        private void serverTwoInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow(servers[1]);
+                infoWindow.ShowDialog();
+            });
+            thread.ApartmentState = ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void serverThreeInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow(servers[2]);
+                infoWindow.ShowDialog();
+            });
+            thread.ApartmentState = ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void serverFourInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow(servers[3]);
+                infoWindow.ShowDialog();
+            });
+            thread.ApartmentState = ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void serverFiveInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow(servers[4]);
+                infoWindow.ShowDialog();
+            });
+            thread.ApartmentState = ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void serverSixInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+            {
+                var infoWindow = new infoWindow(servers[5]);
+                infoWindow.ShowDialog();
+            });
+            thread.ApartmentState = ApartmentState.STA;
+            thread.Start();
+        }
+
 
         // EDIT BUTTONS:
         private void serverOneEditButton_Click(object sender, RoutedEventArgs e)
@@ -1023,5 +1080,7 @@ namespace UbuntuPanel
             thread.ApartmentState = ApartmentState.STA;
             thread.Start();
         }
+
+        
     }
 }
