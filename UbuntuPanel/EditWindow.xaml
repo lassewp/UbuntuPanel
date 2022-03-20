@@ -5,20 +5,121 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UbuntuPanel"
         mc:Ignorable="d"
-        Title="CreateWindow" Height="414" Width="440">
+        Title="Edit Server" Height="428" Width="440">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="Rounded" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="RoundedBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label x:Name="ServerIPLabel" Content="Server IP :" HorizontalAlignment="Left" Margin="33,128,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="PortLabel" Content="Port :" HorizontalAlignment="Left" Margin="33,174,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="UserLabel" Content="Username :" HorizontalAlignment="Left" Margin="33,219,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Label x:Name="PaswordLabel" Content="Password :" HorizontalAlignment="Left" Margin="33,270,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="170,324,0,0" VerticalAlignment="Top" Width="114" FontSize="20" FontWeight="Bold" Height="42" Background="Black" Foreground="#FFFDFDFD" Click="saveButton_Click"/>
-        <TextBox  x:Name="ServerTextBox" HorizontalAlignment="Left" Height="37" Margin="210,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="PortTextBox" HorizontalAlignment="Left" Height="37" Margin="210,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="UserTextBox" HorizontalAlignment="Left" Height="37" Margin="210,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-        <TextBox  x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="37" Margin="210,269,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
-        <Label x:Name="CreateLabel" HorizontalContentAlignment="Center" Content="Edit Server" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top" Width="192" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="ServerIPLabel" Content="Server IP:" HorizontalAlignment="Left" Margin="33,128,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="PortLabel" Content="Port:" HorizontalAlignment="Left" Margin="33,174,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="UserLabel" Content="Username:" HorizontalAlignment="Left" Margin="33,219,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Label x:Name="PaswordLabel" Content="Password:" HorizontalAlignment="Left" Margin="33,270,0,0" VerticalAlignment="Top" Width="107" FontSize="18" FontWeight="Bold"/>
+        <Button Style="{DynamicResource Rounded}" x:Name="saveButton" Content="Save Server" HorizontalAlignment="Center" Margin="0,0,0,23" Width="156" FontSize="20" FontWeight="Bold" Background="Black" Foreground="#FFFDFDFD" Click="saveButton_Click" Height="42" VerticalAlignment="Bottom"/>
+        <TextBox  x:Name="ServerTextBox" HorizontalAlignment="Left" Height="37" Margin="210,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198" Style="{DynamicResource RoundedBox}"/>
+        <TextBox  x:Name="PortTextBox" HorizontalAlignment="Left" Height="37" Margin="210,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198" Style="{DynamicResource RoundedBox}"/>
+        <TextBox  x:Name="UserTextBox" HorizontalAlignment="Left" Height="37" Margin="210,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Style="{DynamicResource RoundedBox}"/>
+        <TextBox  x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="37" Margin="210,269,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198" Style="{DynamicResource RoundedBox}"/>
+        <Label x:Name="CreateLabel" HorizontalContentAlignment="Center" Content="Edit Server" HorizontalAlignment="Center" VerticalAlignment="Top" Width="192" FontSize="36" FontWeight="Bold"/>
         <Label x:Name="ServerName" Content="Server Name :" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="139" FontSize="18" FontWeight="Bold"/>
-        <TextBox  x:Name="ServerNameTextBox" HorizontalAlignment="Left" Height="37" Margin="210,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198" TextChanged="ServerNameTextBox_TextChanged"/>
+        <TextBox Style="{DynamicResource RoundedBox}"  x:Name="ServerNameTextBox" HorizontalAlignment="Left" Height="37" Margin="210,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198"/>
 
     </Grid>
 </Window>

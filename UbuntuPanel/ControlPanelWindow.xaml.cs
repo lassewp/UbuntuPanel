@@ -27,7 +27,7 @@ namespace UbuntuPanel
             InitializeComponent();
 
             // DISPATCH TIMER TO RUN SERVER STATUS CHECK EVERY SECOND
-            TimeStart(0, 0, 10);
+            TimeStart(0, 0, 2);
         }
 
 
