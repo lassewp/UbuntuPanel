@@ -256,6 +256,7 @@
             </StackPanel>
         </GroupBox>
         <Label VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Content="Server Control Panel" HorizontalAlignment="Center" VerticalAlignment="Top" Width="970" Height="55" FontSize="36" FontWeight="Bold"/>
+        <Label Content="Lasse, Casper, Jonas, Ismail og Daniel" HorizontalAlignment="Left" Margin="15,0,0,10" Width="356" FontStyle="Italic" Foreground="#FF919191" Height="26" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

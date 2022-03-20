@@ -19,19 +19,21 @@ namespace UbuntuPanel
 {
     public partial class ControlPanelWindow : Window
     {
+        // LIST TO STORE SAVED SERVERS:
         List<Server> servers = new List<Server>();
 
         public ControlPanelWindow()
         {
             InitializeComponent();
 
-            
-
-            TimeStart(0, 0, 1);
+            // DISPATCH TIMER TO RUN SERVER STATUS CHECK EVERY SECOND
+            TimeStart(0, 0, 10);
         }
+
 
         // -- DISPATCHER -- //
 
+        // TIMER:
         private void TimeStart(int hours, int minutes, int seconds)
         {
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
@@ -40,247 +42,146 @@ namespace UbuntuPanel
             dispatcherTimer.Start();
         }
 
+        // SERVER STATUS CHECKER:
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            // Server Status checker:
             Task.Run(() =>
             {
                 foreach (var server in servers)
                 {
                     Task.Run(() =>
                     {
+                        // SERVER INFORMATION:
                         string ip = server.ServerIP;
                         string port = server.ServerPort.ToString();
                         string user = server.ServerUsername;
                         string pass = server.ServerPassword;
+
                         SshClient client;
 
+                        bool connected = false;
+
+
+                        // CHECK IF OUR SSH CLIENT USES A PORT AND CONNECT TO SERVER:
                         if (port != "" && port != "0")
                         {
                             client = new SshClient(ip, Convert.ToInt32(port), user, pass);
-                            bool connected = false;
-                            try
-                            {
-                                client.Connect();
-                                connected = true;
-                            }
-                            catch (Exception)
-                            {
-                                connected = false;
-                            }
-
-                            if (connected == true)
-                            {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    if (servers.IndexOf(server) == 0)
-                                    {
-                                        serverOneStatus.Content = "Connected";
-                                        serverOneIndicator.Fill = Brushes.Green;
-                                        serverOneRebootButton.IsEnabled = true;
-                                        serverOneInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 1)
-                                    {
-                                        serverTwoStatus.Content = "Connected";
-                                        serverTwoIndicator.Fill = Brushes.Green;
-                                        serverTwoRebootButton.IsEnabled = true;
-                                        serverTwoInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 2)
-                                    {
-                                        serverThreeStatus.Content = "Connected";
-                                        serverThreeIndicator.Fill = Brushes.Green;
-                                        serverThreeRebootButton.IsEnabled = true;
-                                        serverThreeInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 3)
-                                    {
-                                        serverFourStatus.Content = "Connected";
-                                        serverFourIndicator.Fill = Brushes.Green;
-                                        serverFourRebootButton.IsEnabled = true;
-                                        serverFourInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 4)
-                                    {
-                                        serverFiveStatus.Content = "Connected";
-                                        serverFiveIndicator.Fill = Brushes.Green;
-                                        serverFiveRebootButton.IsEnabled = true;
-                                        serverFiveInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 5)
-                                    {
-                                        serverSixStatus.Content = "Connected";
-                                        serverSixIndicator.Fill = Brushes.Green;
-                                        serverSixRebootButton.IsEnabled = true;
-                                        serverSixInfoButton.IsEnabled = true;
-                                    }
-                                });
-                            }
-                            else
-                            {
-
-                                Dispatcher.Invoke(() =>
-                                {
-                                    if (servers.IndexOf(server) == 0)
-                                    {
-                                        serverOneStatus.Content = "No connection";
-                                        serverOneIndicator.Fill = Brushes.Red;
-                                        serverOneRebootButton.IsEnabled = false;
-                                        serverOneInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 1)
-                                    {
-                                        serverTwoStatus.Content = "No connection";
-                                        serverTwoIndicator.Fill = Brushes.Red;
-                                        serverTwoRebootButton.IsEnabled = false;
-                                        serverTwoInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 2)
-                                    {
-                                        serverThreeStatus.Content = "No connection";
-                                        serverThreeIndicator.Fill = Brushes.Red;
-                                        serverThreeRebootButton.IsEnabled = false;
-                                        serverThreeInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 3)
-                                    {
-                                        serverFourStatus.Content = "No connection";
-                                        serverFourIndicator.Fill = Brushes.Red;
-                                        serverFourRebootButton.IsEnabled = false;
-                                        serverFourInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 4)
-                                    {
-                                        serverFiveStatus.Content = "No connection";
-                                        serverFiveIndicator.Fill = Brushes.Red;
-                                        serverFiveRebootButton.IsEnabled = false;
-                                        serverFiveInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 5)
-                                    {
-                                        serverSixStatus.Content = "No connection";
-                                        serverSixIndicator.Fill = Brushes.Red;
-                                        serverSixRebootButton.IsEnabled = false;
-                                        serverSixInfoButton.IsEnabled = false;
-                                    }
-                                });
-                            }
-                            client.Disconnect();
                         }
                         else
                         {
                             client = new SshClient(ip, user, pass);
-                            bool connected = false;
-
-                            try
-                            {
-                                client.Connect();
-                                connected = true;
-                            }
-                            catch (Exception)
-                            {
-                                connected = false;
-                            }
-
-                            if (connected == true)
-                            {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    if (servers.IndexOf(server) == 0)
-                                    {
-                                        serverOneStatus.Content = "Connected";
-                                        serverOneIndicator.Fill = Brushes.Green;
-                                        serverOneRebootButton.IsEnabled = true;
-                                        serverOneInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 1)
-                                    {
-                                        serverTwoStatus.Content = "Connected";
-                                        serverTwoIndicator.Fill = Brushes.Green;
-                                        serverTwoRebootButton.IsEnabled = true;
-                                        serverTwoInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 2)
-                                    {
-                                        serverThreeStatus.Content = "Connected";
-                                        serverThreeIndicator.Fill = Brushes.Green;
-                                        serverThreeRebootButton.IsEnabled = true;
-                                        serverThreeInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 3)
-                                    {
-                                        serverFourStatus.Content = "Connected";
-                                        serverFourIndicator.Fill = Brushes.Green;
-                                        serverFourRebootButton.IsEnabled = true;
-                                        serverFourInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 4)
-                                    {
-                                        serverFiveStatus.Content = "Connected";
-                                        serverFiveIndicator.Fill = Brushes.Green;
-                                        serverFiveRebootButton.IsEnabled = true;
-                                        serverFiveInfoButton.IsEnabled = true;
-                                    }
-                                    else if (servers.IndexOf(server) == 5)
-                                    {
-                                        serverSixStatus.Content = "Connected";
-                                        serverSixIndicator.Fill = Brushes.Green;
-                                        serverSixRebootButton.IsEnabled = true;
-                                        serverSixInfoButton.IsEnabled = true;
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    if (servers.IndexOf(server) == 0)
-                                    {
-                                        serverOneStatus.Content = "No connection";
-                                        serverOneIndicator.Fill = Brushes.Red;
-                                        serverOneRebootButton.IsEnabled = false;
-                                        serverOneInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 1)
-                                    {
-                                        serverTwoStatus.Content = "No connection";
-                                        serverTwoIndicator.Fill = Brushes.Red;
-                                        serverTwoRebootButton.IsEnabled = false;
-                                        serverTwoInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 2)
-                                    {
-                                        serverThreeStatus.Content = "No connection";
-                                        serverThreeIndicator.Fill = Brushes.Red;
-                                        serverThreeRebootButton.IsEnabled = false;
-                                        serverThreeInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 3)
-                                    {
-                                        serverFourStatus.Content = "No connection";
-                                        serverFourIndicator.Fill = Brushes.Red;
-                                        serverFourRebootButton.IsEnabled = false;
-                                        serverFourInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 4)
-                                    {
-                                        serverFiveStatus.Content = "No connection";
-                                        serverFiveIndicator.Fill = Brushes.Red;
-                                        serverFiveRebootButton.IsEnabled = false;
-                                        serverFiveInfoButton.IsEnabled = false;
-                                    }
-                                    else if (servers.IndexOf(server) == 5)
-                                    {
-                                        serverSixStatus.Content = "No connection";
-                                        serverSixIndicator.Fill = Brushes.Red;
-                                        serverSixRebootButton.IsEnabled = false;
-                                        serverSixInfoButton.IsEnabled = false;
-                                    }
-                                });
-                            }
-                            client.Disconnect();
                         }
+
+                        // TRY CONNECT TO SERVER:
+                        try
+                        {
+                            client.Connect();
+                            connected = true;
+                        }
+                        catch (Exception)
+                        {
+                            connected = false;
+                        }
+
+                        if (connected == true)
+                        {
+                            // SET STATUS TO CONNECTED AND INDICATOR GREEN - IF SERVER IS CONNNECTED
+                            Dispatcher.Invoke(() =>
+                            {
+                                if (servers.IndexOf(server) == 0)
+                                {
+                                    serverOneStatus.Content = "Connected";
+                                    serverOneIndicator.Fill = Brushes.Green;
+                                    serverOneRebootButton.IsEnabled = true;
+                                    serverOneInfoButton.IsEnabled = true;
+                                }
+                                else if (servers.IndexOf(server) == 1)
+                                {
+                                    serverTwoStatus.Content = "Connected";
+                                    serverTwoIndicator.Fill = Brushes.Green;
+                                    serverTwoRebootButton.IsEnabled = true;
+                                    serverTwoInfoButton.IsEnabled = true;
+                                }
+                                else if (servers.IndexOf(server) == 2)
+                                {
+                                    serverThreeStatus.Content = "Connected";
+                                    serverThreeIndicator.Fill = Brushes.Green;
+                                    serverThreeRebootButton.IsEnabled = true;
+                                    serverThreeInfoButton.IsEnabled = true;
+                                }
+                                else if (servers.IndexOf(server) == 3)
+                                {
+                                    serverFourStatus.Content = "Connected";
+                                    serverFourIndicator.Fill = Brushes.Green;
+                                    serverFourRebootButton.IsEnabled = true;
+                                    serverFourInfoButton.IsEnabled = true;
+                                }
+                                else if (servers.IndexOf(server) == 4)
+                                {
+                                    serverFiveStatus.Content = "Connected";
+                                    serverFiveIndicator.Fill = Brushes.Green;
+                                    serverFiveRebootButton.IsEnabled = true;
+                                    serverFiveInfoButton.IsEnabled = true;
+                                }
+                                else if (servers.IndexOf(server) == 5)
+                                {
+                                    serverSixStatus.Content = "Connected";
+                                    serverSixIndicator.Fill = Brushes.Green;
+                                    serverSixRebootButton.IsEnabled = true;
+                                    serverSixInfoButton.IsEnabled = true;
+                                }
+                            });
+                        }
+                        else
+                        {
+                            // SET STATUS TO CONNECTED AND INDICATOR RED - IF SERVER IS NOT CONNNECTED
+                            Dispatcher.Invoke(() =>
+                            {
+                                if (servers.IndexOf(server) == 0)
+                                {
+                                    serverOneStatus.Content = "No connection";
+                                    serverOneIndicator.Fill = Brushes.Red;
+                                    serverOneRebootButton.IsEnabled = false;
+                                    serverOneInfoButton.IsEnabled = false;
+                                }
+                                else if (servers.IndexOf(server) == 1)
+                                {
+                                    serverTwoStatus.Content = "No connection";
+                                    serverTwoIndicator.Fill = Brushes.Red;
+                                    serverTwoRebootButton.IsEnabled = false;
+                                    serverTwoInfoButton.IsEnabled = false;
+                                }
+                                else if (servers.IndexOf(server) == 2)
+                                {
+                                    serverThreeStatus.Content = "No connection";
+                                    serverThreeIndicator.Fill = Brushes.Red;
+                                    serverThreeRebootButton.IsEnabled = false;
+                                    serverThreeInfoButton.IsEnabled = false;
+                                }
+                                else if (servers.IndexOf(server) == 3)
+                                {
+                                    serverFourStatus.Content = "No connection";
+                                    serverFourIndicator.Fill = Brushes.Red;
+                                    serverFourRebootButton.IsEnabled = false;
+                                    serverFourInfoButton.IsEnabled = false;
+                                }
+                                else if (servers.IndexOf(server) == 4)
+                                {
+                                    serverFiveStatus.Content = "No connection";
+                                    serverFiveIndicator.Fill = Brushes.Red;
+                                    serverFiveRebootButton.IsEnabled = false;
+                                    serverFiveInfoButton.IsEnabled = false;
+                                }
+                                else if (servers.IndexOf(server) == 5)
+                                {
+                                    serverSixStatus.Content = "No connection";
+                                    serverSixIndicator.Fill = Brushes.Red;
+                                    serverSixRebootButton.IsEnabled = false;
+                                    serverSixInfoButton.IsEnabled = false;
+                                }
+                            });
+                        }
+                        client.Disconnect();
                     });
                 }
             });
@@ -289,47 +190,27 @@ namespace UbuntuPanel
 
         // -- BUTTONS -- //
 
-        // RESET BUTTONS:
+        // REBOOT BUTTONS:
         private void serverOneRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[0].ServerPort.ToString() != "")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[0].ServerPort != 0 && servers[0].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[0].ServerIP, Convert.ToInt32(servers[0].ServerPort), servers[0].ServerUsername, servers[0].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[0].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[0].ServerIP, servers[0].ServerUsername, servers[0].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[0].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -340,63 +221,46 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[0].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
+
                 }
             });
         }
 
         private void serverTwoRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[1].ServerPort.ToString() != "" && servers[1].ServerPort.ToString() != "0")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[1].ServerPort != 0 && servers[1].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[1].ServerIP, Convert.ToInt32(servers[1].ServerPort), servers[1].ServerUsername, servers[1].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[1].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[1].ServerIP, servers[1].ServerUsername, servers[1].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[1].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -407,64 +271,45 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[1].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
-
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
                 }
             });
         }
 
         private void serverThreeRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[0].ServerPort.ToString() != "")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[2].ServerPort != 0 && servers[2].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[2].ServerIP, Convert.ToInt32(servers[2].ServerPort), servers[2].ServerUsername, servers[2].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[2].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[2].ServerIP, servers[2].ServerUsername, servers[2].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[2].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -475,63 +320,45 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[2].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
                 }
             });
         }
 
         private void serverFourRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[3].ServerPort.ToString() != "")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[3].ServerPort != 0 && servers[3].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[3].ServerIP, Convert.ToInt32(servers[3].ServerPort), servers[3].ServerUsername, servers[3].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[3].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[3].ServerIP, servers[3].ServerUsername, servers[3].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[3].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -542,63 +369,45 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[3].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
                 }
             });
         }
 
         private void serverFiveRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[4].ServerPort.ToString() != "")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[4].ServerPort != 0 && servers[4].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[4].ServerIP, Convert.ToInt32(servers[4].ServerPort), servers[4].ServerUsername, servers[4].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[4].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[4].ServerIP, servers[4].ServerUsername, servers[4].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[4].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -609,63 +418,45 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[4].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
                 }
             });
         }
 
         private void serverSixRebootButton_Click(object sender, RoutedEventArgs e)
         {
+            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
             {
                 SshClient client;
+                bool connected = false;
 
-                if (servers[5].ServerPort.ToString() != "")
+                // CHECK IF WE'RE USING A PORT OR NOT
+                if (servers[5].ServerPort != 0 && servers[5].ServerPort.ToString() != "")
                 {
                     client = new SshClient(servers[5].ServerIP, Convert.ToInt32(servers[5].ServerPort), servers[5].ServerUsername, servers[5].ServerPassword);
-
-                    bool connected = false;
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[5].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                            connected = false;
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    }
-                    client.Disconnect();
                 }
                 else
                 {
                     client = new SshClient(servers[5].ServerIP, servers[5].ServerUsername, servers[5].ServerPassword);
-                    bool connected = false;
+                }
+
+                if (servers[5].ServerPort.ToString() != "")
+                {
                     try
                     {
                         client.Connect();
@@ -676,19 +467,21 @@ namespace UbuntuPanel
                         connected = false;
                     }
 
+                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
                     if (connected == true)
                     {
                         var rebootCmd = client.CreateCommand("echo -e '" + servers[5].ServerPassword + "' | sudo -S reboot");
                         try
                         {
                             rebootCmd.Execute();
-                            connected = false;
                         }
                         catch (Exception)
                         {
+                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
                         }
+                        client.Disconnect();
+                        connected = false;
                     }
-                    client.Disconnect();
                 }
             });
         }
@@ -1081,6 +874,6 @@ namespace UbuntuPanel
             thread.Start();
         }
 
-        
+
     }
 }
