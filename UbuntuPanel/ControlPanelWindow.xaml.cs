@@ -191,7 +191,7 @@ namespace UbuntuPanel
         // -- BUTTONS -- //
 
         // REBOOT BUTTONS:
-        private void serverOneRebootButton_Click(object sender, RoutedEventArgs e)
+        private void Reboot()
         {
             // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
             Task.Run(() =>
@@ -199,291 +199,85 @@ namespace UbuntuPanel
                 SshClient client;
                 bool connected = false;
 
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[0].ServerPort != 0 && servers[0].ServerPort.ToString() != "")
+                for (int i = 0; i < servers.Count; i++)
                 {
-                    client = new SshClient(servers[0].ServerIP, Convert.ToInt32(servers[0].ServerPort), servers[0].ServerUsername, servers[0].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[0].ServerIP, servers[0].ServerUsername, servers[0].ServerPassword);
-                }
 
-                if (servers[0].ServerPort.ToString() != "")
-                {
-                    try
+
+                    // CHECK IF WE'RE USING A PORT OR NOT
+                    if (servers[i].ServerPort != 0 && servers[i].ServerPort.ToString() != "")
                     {
-                        client.Connect();
-                        connected = true;
+                        client = new SshClient(servers[i].ServerIP, Convert.ToInt32(servers[i].ServerPort), servers[i].ServerUsername, servers[i].ServerPassword);
                     }
-                    catch (Exception)
+                    else
                     {
-                        connected = false;
+                        client = new SshClient(servers[i].ServerIP, servers[i].ServerUsername, servers[i].ServerPassword);
                     }
 
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
+                    if (servers[i].ServerPort.ToString() != "")
                     {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[0].ServerPassword + "' | sudo -S reboot");
                         try
                         {
-                            rebootCmd.Execute();
+                            client.Connect();
+                            connected = true;
                         }
                         catch (Exception)
                         {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
+                            connected = false;
                         }
-                        client.Disconnect();
-                        connected = false;
-                    }
 
+                        // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
+                        if (connected == true)
+                        {
+                            var rebootCmd = client.CreateCommand("echo -e '" + servers[i].ServerPassword + "' | sudo -S reboot");
+                            try
+                            {
+                                rebootCmd.Execute();
+                            }
+                            catch (Exception)
+                            {
+                                // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
+                            }
+                            client.Disconnect();
+                            connected = false;
+                        }
+
+                    }
                 }
             });
+        }
+
+        private void serverOneRebootButton_Click(object sender, RoutedEventArgs e)
+        {
+            Reboot();
+          
         }
 
         private void serverTwoRebootButton_Click(object sender, RoutedEventArgs e)
         {
-            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
-            Task.Run(() =>
-            {
-                SshClient client;
-                bool connected = false;
-
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[1].ServerPort != 0 && servers[1].ServerPort.ToString() != "")
-                {
-                    client = new SshClient(servers[1].ServerIP, Convert.ToInt32(servers[1].ServerPort), servers[1].ServerUsername, servers[1].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[1].ServerIP, servers[1].ServerUsername, servers[1].ServerPassword);
-                }
-
-                if (servers[1].ServerPort.ToString() != "")
-                {
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[1].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                        }
-                        catch (Exception)
-                        {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
-                        }
-                        client.Disconnect();
-                        connected = false;
-                    }
-                }
-            });
+            Reboot();
+          
         }
 
         private void serverThreeRebootButton_Click(object sender, RoutedEventArgs e)
         {
-            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
-            Task.Run(() =>
-            {
-                SshClient client;
-                bool connected = false;
+            Reboot();
 
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[2].ServerPort != 0 && servers[2].ServerPort.ToString() != "")
-                {
-                    client = new SshClient(servers[2].ServerIP, Convert.ToInt32(servers[2].ServerPort), servers[2].ServerUsername, servers[2].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[2].ServerIP, servers[2].ServerUsername, servers[2].ServerPassword);
-                }
-
-                if (servers[2].ServerPort.ToString() != "")
-                {
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[2].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                        }
-                        catch (Exception)
-                        {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
-                        }
-                        client.Disconnect();
-                        connected = false;
-                    }
-                }
-            });
         }
 
         private void serverFourRebootButton_Click(object sender, RoutedEventArgs e)
         {
-            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
-            Task.Run(() =>
-            {
-                SshClient client;
-                bool connected = false;
+            Reboot();
 
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[3].ServerPort != 0 && servers[3].ServerPort.ToString() != "")
-                {
-                    client = new SshClient(servers[3].ServerIP, Convert.ToInt32(servers[3].ServerPort), servers[3].ServerUsername, servers[3].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[3].ServerIP, servers[3].ServerUsername, servers[3].ServerPassword);
-                }
-
-                if (servers[3].ServerPort.ToString() != "")
-                {
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[3].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                        }
-                        catch (Exception)
-                        {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
-                        }
-                        client.Disconnect();
-                        connected = false;
-                    }
-                }
-            });
         }
 
         private void serverFiveRebootButton_Click(object sender, RoutedEventArgs e)
         {
-            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
-            Task.Run(() =>
-            {
-                SshClient client;
-                bool connected = false;
-
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[4].ServerPort != 0 && servers[4].ServerPort.ToString() != "")
-                {
-                    client = new SshClient(servers[4].ServerIP, Convert.ToInt32(servers[4].ServerPort), servers[4].ServerUsername, servers[4].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[4].ServerIP, servers[4].ServerUsername, servers[4].ServerPassword);
-                }
-
-                if (servers[4].ServerPort.ToString() != "")
-                {
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[4].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                        }
-                        catch (Exception)
-                        {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
-                        }
-                        client.Disconnect();
-                        connected = false;
-                    }
-                }
-            });
+            Reboot();
         }
 
         private void serverSixRebootButton_Click(object sender, RoutedEventArgs e)
         {
-            // RUNS A TASK THAT TRIES TO CONNECT TO THE SERVER AND SEND A REBOOT A COMMAND
-            Task.Run(() =>
-            {
-                SshClient client;
-                bool connected = false;
-
-                // CHECK IF WE'RE USING A PORT OR NOT
-                if (servers[5].ServerPort != 0 && servers[5].ServerPort.ToString() != "")
-                {
-                    client = new SshClient(servers[5].ServerIP, Convert.ToInt32(servers[5].ServerPort), servers[5].ServerUsername, servers[5].ServerPassword);
-                }
-                else
-                {
-                    client = new SshClient(servers[5].ServerIP, servers[5].ServerUsername, servers[5].ServerPassword);
-                }
-
-                if (servers[5].ServerPort.ToString() != "")
-                {
-                    try
-                    {
-                        client.Connect();
-                        connected = true;
-                    }
-                    catch (Exception)
-                    {
-                        connected = false;
-                    }
-
-                    // IF WE'RE CONNECTED, TRY RUN THE REBOOT COMMAND
-                    if (connected == true)
-                    {
-                        var rebootCmd = client.CreateCommand("echo -e '" + servers[5].ServerPassword + "' | sudo -S reboot");
-                        try
-                        {
-                            rebootCmd.Execute();
-                        }
-                        catch (Exception)
-                        {
-                            // EXCEPTION WILL APPEAR, WHEN THE SERVER REBOOTS WE LOOSE CONNECTION, WHICH CAUSES AN EXCEPTION
-                        }
-                        client.Disconnect();
-                        connected = false;
-                    }
-                }
-            });
+            Reboot();
         }
 
 
