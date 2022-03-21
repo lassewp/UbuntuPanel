@@ -19,13 +19,14 @@ namespace UbuntuPanel
 {
     public partial class ControlPanelWindow : Window
     {
+        
         // LIST TO STORE SAVED SERVERS:
         List<Server> servers = new List<Server>();
 
         public ControlPanelWindow()
         {
             InitializeComponent();
-
+            Console.WriteLine("Test");
             // DISPATCH TIMER TO RUN SERVER STATUS CHECK EVERY SECOND
             TimeStart(0, 0, 2);
         }
