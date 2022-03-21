@@ -629,8 +629,10 @@ namespace UbuntuPanel
                     editWindow.UserTextBox.Text = servers[5].ServerUsername;
                     editWindow.PasswordTextBox.Text = servers[5].ServerPassword;
                 }
-
-                editWindow.ShowDialog();
+                if (servers.Count == 5)
+                {
+                    editWindow.ShowDialog();
+                }
 
                 if (editWindow.IsSaved)
                 {

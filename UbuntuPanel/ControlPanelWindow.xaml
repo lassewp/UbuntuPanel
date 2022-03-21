@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UbuntuPanel"
         mc:Ignorable="d"
-        Title="ControlPanelWindow" Height="500" Width="1000">
+        Title="ControlPanelWindow" Height="500" Width="1000" ResizeMode="NoResize">
     <Window.Resources>
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
