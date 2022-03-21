@@ -365,7 +365,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[0].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 0)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
@@ -418,7 +425,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[1].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 1)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
@@ -471,7 +485,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[2].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 2)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
@@ -524,7 +545,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[3].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 3)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
@@ -577,7 +605,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[4].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 4)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
@@ -621,7 +656,7 @@ namespace UbuntuPanel
             {
                 CreateWindow editWindow = new CreateWindow();
 
-                if (servers.ElementAtOrDefault(1) != null)
+                if (servers.ElementAtOrDefault(5) != null)
                 {
                     editWindow.ServerNameTextBox.Text = servers[5].ServerName;
                     editWindow.ServerTextBox.Text = servers[5].ServerIP;
@@ -630,7 +665,14 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[5].ServerPassword;
                 }
 
-                editWindow.ShowDialog();
+                if (servers.Count == 5)
+                {
+                    editWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Udfyld forrige server", "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 if (editWindow.IsSaved)
                 {
