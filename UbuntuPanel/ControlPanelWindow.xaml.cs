@@ -365,7 +365,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[0].ServerPassword;
                 }
 
-                if (servers.Count == 0)
+                if (servers.Count >= 0)
                 {
                     editWindow.ShowDialog();
                 }
@@ -425,7 +425,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[1].ServerPassword;
                 }
 
-                if (servers.Count == 1)
+                if (servers.Count >= 1)
                 {
                     editWindow.ShowDialog();
                 }
@@ -485,7 +485,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[2].ServerPassword;
                 }
 
-                if (servers.Count == 2)
+                if (servers.Count >= 2)
                 {
                     editWindow.ShowDialog();
                 }
@@ -545,7 +545,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[3].ServerPassword;
                 }
 
-                if (servers.Count == 3)
+                if (servers.Count >= 3)
                 {
                     editWindow.ShowDialog();
                 }
@@ -605,7 +605,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[4].ServerPassword;
                 }
 
-                if (servers.Count == 4)
+                if (servers.Count >= 4)
                 {
                     editWindow.ShowDialog();
                 }
@@ -665,7 +665,7 @@ namespace UbuntuPanel
                     editWindow.PasswordTextBox.Text = servers[5].ServerPassword;
                 }
 
-                if (servers.Count == 5)
+                if (servers.Count >= 5)
                 {
                     editWindow.ShowDialog();
                 }
